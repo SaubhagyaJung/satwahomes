@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>SATWA | Sustainable Architecture Trends</title>
+  <!-- Google Fonts (Montserrat) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <style>
+    body {
+     
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+      margin: 0;
+      padding: 0;
+      color: #333;
+      line-height: 1.6;
+    }
+    .header, .footer {
+      background: #fff;
+      padding: 1rem 2rem;
+      border-bottom: 1px solid #eee;
+    }
+    .header .logo a {
+      font-size: 20px;
+      font-weight: 700;
+      color: #2365DF;
+      text-transform: lowercase;
+    }
+    .nav-list {
+      list-style: none;
+      display: flex;
+      gap: 1rem;
+    }
+    .nav-list a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+    }
+    .blog-detail-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    .blog-detail-container h1 {
+      font-size: 2.5rem;
+      color: #2365DF;
+      margin-bottom: 0.5rem;
+      margin-top: 100px;
+    }
+    .blog-meta {
+      font-size: 0.9rem;
+      color: #999;
+      margin-bottom: 1.5rem;
+    }
+    .blog-image {
+      width: 100%;
+      height: auto;
+      margin-bottom: 1.5rem;
+    }
+    .blog-content {
+      font-size: 1rem;
+      color: #555;
+    }
+    .back-link {
+      display: block;
+      margin-top: 2rem;
+      text-align: center;
+      font-weight: 600;
+      color: #2365DF;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .back-link:hover {
+      color: #004080;
+    }
+
+
+    .main-header {
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      background: #fff;
+      width: 100%;
+      border-bottom: 0px solid #eee;
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 134px; /* Large-screen spacing */
+      position: relative;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #000;
+      margin-left: 1rem;
+      margin-top: 17px;
+    }
+    .logo a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      display: inline-block;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      text-transform: lowercase;
+    }
+    .logo a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: #000;
+      transition: width 0.3s ease;
+    }
+    .logo a:hover::after {
+      width: 100%;
+    }
+    .nav-list {
+      display: flex;
+      list-style: none;
+      justify-content: flex-end;
+      margin-right: 1rem;
+    }
+    .nav-list li {
+      margin-left: 2rem;
+    }
+    .nav-list a {
+      text-decoration: none;
+      color: #000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+    }
+    .menu-icon {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      margin-right: 1.5rem;
+    }
+    .menu-icon div {
+      width: 15px;
+      height: 0.6px;
+      background-color: #000;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+    @media (max-width: 768px) {
+      .navbar {
+        margin-right: 0;
+      }
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #fff;
+        width: 100%;
+        padding: 1rem;
+        border-top: 1px solid #ccc;
+      }
+      .nav-list li {
+        margin-left: 0;
+        margin-bottom: 1rem;
+      }
+      .nav-list a {
+        font-size: 1rem;
+        display: block;
+      }
+      .menu-icon {
+        display: flex;
+      }
+      .nav-list.show {
+        display: flex;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="main-header">
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html" style="text-transform: lowercase;">
+          <img src="photo/logo2.png" alt="logo">
+        </a>
+      </div>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="nav-list">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#blog">Updates</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="price.html">Calculator</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+  <div class="blog-detail-container">
+    <h1>Sustainable Architecture Trends</h1>
+    <div class="blog-meta">By John Doe | April 1, 2025</div>
+    <img src="photo/image copy 17.png" alt="Sustainable Architecture" class="blog-image"  style="border-radius: 5px;"/>
+    <div class="blog-content">
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent in semper nisi, nec efficitur leo. Sed tincidunt sapien non dolor tristique, nec convallis libero convallis. Vestibulum a libero nec odio mollis tincidunt. Vivamus commodo sollicitudin mi, sit amet feugiat libero placerat eget. Nulla facilisi. Integer eget arcu non enim suscipit interdum. Phasellus vestibulum luctus urna, ut bibendum leo interdum sit amet.</p>
+      <p>Curabitur aliquet, magna ut efficitur porta, libero nisi fermentum ex, nec consequat lectus arcu et enim. Mauris luctus, metus et pellentesque volutpat, massa nisi cursus enim, eget dapibus neque lectus ac sapien. Etiam sed odio eget dolor mollis interdum. Morbi at commodo nunc. Sed euismod arcu ut orci hendrerit, nec facilisis nulla ultrices.</p>
+      <p>Donec ac magna vitae velit efficitur commodo. Integer id tincidunt dui. Pellentesque blandit dictum augue, ac convallis dui lobortis nec. Integer cursus, nibh in tempor volutpat, ex urna laoreet ligula, non convallis risus nisl in justo.</p>
+    </div>
+    <a href="index.html#blog" class="back-link">&laquo; Back to Blog</a>
+  </div>
+  <footer class="footer">
+    <p>&copy; 2025 SATWA. All rights reserved.</p>
+  </footer>
+</body>
+</html>

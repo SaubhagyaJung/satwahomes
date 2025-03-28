@@ -1,0 +1,1184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>House Cost Calculator | SATWA</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <style>
+    /*********************************************************
+       GLOBAL STYLES & RESETS
+    **********************************************************/
+    :root {
+      --primary-color: #2365DF;
+      --text-color: #000;
+      --background-color: #F2F5FB;
+      --card-color: #fff;
+      --border-color: rgba(0, 0, 0, 0.1);
+    }
+    
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-color);
+      background-color: var(--background-color);
+      line-height: 1.6;
+    }
+    
+    a, button {
+      cursor: url('photo/minimal-shovel-cursor.png') 16 16, pointer;
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    /*********************************************************
+       HEADER & NAV (Updated to match main site)
+    **********************************************************/
+    .main-header {
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      background: #fff;
+      width: 100%;
+      border-bottom: 0px solid #eee;
+    }
+    
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 134px;
+      position: relative;
+    }
+    
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #000;
+      margin-left: 1rem;
+      margin-top: 17px;
+    }
+    
+    .logo a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      display: inline-block;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      text-transform: lowercase;
+    }
+    
+    .logo a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: #000;
+      transition: width 0.3s ease;
+    }
+    
+    .logo a:hover::after {
+      width: 100%;
+    }
+    
+    .nav-list {
+      display: flex;
+      list-style: none;
+      justify-content: flex-end;
+      margin-right: 1rem;
+    }
+    
+    .nav-list li {
+      margin-left: 2rem;
+    }
+    
+    .nav-list a {
+      text-decoration: none;
+      color: #000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+    }
+    
+    .menu-icon {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      margin-right: 1.5rem;
+    }
+    
+    .menu-icon div {
+      width: 15px;
+      height: 0.6px;
+      background-color: #000;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+    
+    @media (max-width: 768px) {
+      .navbar {
+        margin-right: 0;
+      }
+      
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #fff;
+        width: 100%;
+        padding: 1rem;
+        border-top: 1px solid #ccc;
+      }
+      
+      .nav-list li {
+        margin-left: 0;
+        margin-bottom: 1rem;
+      }
+      
+      .nav-list a {
+        font-size: 1rem;
+        display: block;
+      }
+      
+      .menu-icon {
+        display: flex;
+      }
+      
+      .nav-list.show {
+        display: flex;
+      }
+    }
+
+    /*********************************************************
+       CALCULATOR STYLES
+    **********************************************************/
+    .calculator-container {
+      max-width: 800px;
+      margin: 100px auto 40px;
+      padding: 30px;
+      background: var(--card-color);
+      border-radius: 10px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+    
+    h1 {
+      text-align: center;
+      color: var(--primary-color);
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-size: 24px;
+    }
+    
+    .intro-text {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #666;
+      font-weight: 300;
+      font-size: 14px;
+    }
+    
+    .progress-container {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+      margin-bottom: 30px;
+      height: 4px;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background-color: var(--primary-color);
+      border-radius: 5px;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .question-section {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+    
+    .question-section.active {
+      display: block;
+    }
+    
+    .question {
+      font-size: 16px;
+      margin-bottom: 20px;
+      color: var(--text-color);
+      font-weight: 500;
+    }
+    
+    select, input[type="range"] {
+      width: 100%;
+      padding: 12px 15px;
+      margin-top: 10px;
+      background-color: var(--background-color);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--text-color);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      appearance: none;
+      -webkit-appearance: none;
+    }
+    
+    select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%232365DF' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 15px center;
+      background-size: 12px;
+    }
+    
+    .slider-container {
+      position: relative;
+      margin: 30px 0;
+    }
+    
+    .slider-value {
+      position: absolute;
+      top: -30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: var(--primary-color);
+      color: white;
+      padding: 5px 15px;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    
+    input[type="range"] {
+      -webkit-appearance: none;
+      height: 6px;
+      background: #ddd;
+      border-radius: 5px;
+      padding: 0;
+    }
+    
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      background: var(--primary-color);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      border: 3px solid white;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 40px;
+    }
+    
+    button {
+      padding: 12px 25px;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    button:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+    
+    button:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .back-btn {
+      background-color: transparent;
+      color: var(--primary-color);
+      border: 1px solid var(--primary-color);
+    }
+    
+    .result {
+      text-align: center;
+      margin-top: 30px;
+      display: none;
+    }
+    
+    .result h2 {
+      color: var(--primary-color);
+      margin-bottom: 10px;
+      font-size: 20px;
+    }
+    
+    .total-cost {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--primary-color);
+      margin: 20px 0;
+    }
+    
+    .summary {
+      text-align: left;
+      margin-top: 30px;
+      background-color: var(--background-color);
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .summary-item {
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+    }
+    
+    .summary-item span:first-child {
+      font-weight: 500;
+      color: #666;
+    }
+    
+    .summary-item span:last-child {
+      font-weight: 600;
+    }
+    
+    .restart-btn {
+      margin-top: 30px;
+      background-color: var(--text-color);
+    }
+    
+    .pdf-btn {
+      margin-top: 20px;
+      background-color: #e74c3c;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @media (max-width: 768px) {
+      .calculator-container {
+        margin: 90px 15px 30px;
+        padding: 20px;
+      }
+      
+      h1 {
+        font-size: 22px;
+      }
+      
+      .question {
+        font-size: 15px;
+      }
+      
+      button {
+        padding: 10px 15px;
+        font-size: 13px;
+      }
+      
+      .total-cost {
+        font-size: 24px;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .calculator-container {
+        margin: 80px 10px 20px;
+        padding: 15px;
+      }
+      
+      h1 {
+        font-size: 20px;
+      }
+      
+      .intro-text {
+        font-size: 13px;
+      }
+      
+      .question {
+        font-size: 14px;
+      }
+      
+      select, input[type="range"] {
+        padding: 10px 12px;
+        font-size: 13px;
+      }
+      
+      .slider-value {
+        font-size: 12px;
+        padding: 3px 10px;
+      }
+      
+      .button-container {
+        margin-top: 30px;
+      }
+      
+      button {
+        padding: 8px 12px;
+        font-size: 12px;
+      }
+      
+      .total-cost {
+        font-size: 22px;
+      }
+      
+      .summary-item {
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION (Updated to match main site) -->
+  <header class="main-header">
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html" style="text-transform: lowercase;">
+          <img src="photo/logo2.png" alt="logo">
+        </a>
+      </div>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="nav-list">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#blog">Updates</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="price.html">Calculator</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <div class="calculator-container">
+    <h1>House Cost Calculator</h1>
+    <p class="intro-text">Estimate the cost of your dream home with our simple calculator</p>
+    
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    
+    <form id="costCalculatorForm">
+      <!-- Project Type -->
+      <div class="question-section active" id="section1">
+        <div class="question">1. What type of project are you planning?</div>
+        <select id="projectType">
+          <option value="Commercial">Commercial</option>
+          <option value="Residential">Residential</option>
+          <option value="Residential cum Commercial">Residential + Commercial</option>
+        </select>
+      </div>
+
+      <!-- Basement -->
+      <div class="question-section" id="section2">
+        <div class="question">2. Do you want a basement?</div>
+        <select id="basement">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <!-- Number of Floors -->
+      <div class="question-section" id="section3">
+        <div class="question">3. How many floors will your house have?</div>
+        <div class="slider-container">
+          <div class="slider-value" id="floorValue">1</div>
+          <input type="range" id="floors" min="1" max="24" value="2" step="1">
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+          <span style="font-size: 12px;">1</span>
+          <span style="font-size: 12px;">12</span>
+        </div>
+      </div>
+
+      <!-- Number of Rooms in Ground Floor -->
+      <div class="question-section" id="section4">
+        <div class="question">4. Number of rooms on ground floor</div>
+        <div class="slider-container">
+          <div class="slider-value" id="groundRoomsValue">1</div>
+          <input type="range" id="groundRooms" min="1" max="10" value="2" step="1">
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+          <span style="font-size: 12px;">1</span>
+          <span style="font-size: 12px;">10</span>
+        </div>
+      </div>
+
+      <!-- Total Number of Rooms -->
+      <div class="question-section" id="section5">
+        <div class="question">5. Total number of rooms in house</div>
+        <div class="slider-container">
+          <div class="slider-value" id="totalRoomsValue">1</div>
+          <input type="range" id="totalRooms" min="1" max="20" value="3" step="1">
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+          <span style="font-size: 12px;">1</span>
+          <span style="font-size: 12px;">20</span>
+        </div>
+      </div>
+
+      <!-- Number of Bathrooms -->
+      <div class="question-section" id="section6">
+        <div class="question">6. Number of bathrooms</div>
+        <div class="slider-container">
+          <div class="slider-value" id="bathroomsValue">1</div>
+          <input type="range" id="bathrooms" min="1" max="10" value="2" step="1">
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+          <span style="font-size: 12px;">1</span>
+          <span style="font-size: 12px;">10</span>
+        </div>
+      </div>
+
+      <!-- Number of Kitchens -->
+      <div class="question-section" id="section7">
+        <div class="question">7. Number of kitchens</div>
+        <div class="slider-container">
+          <div class="slider-value" id="kitchensValue">1</div>
+          <input type="range" id="kitchens" min="1" max="5" value="1" step="1">
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-top: 10px;">
+          <span style="font-size: 12px;">1</span>
+          <span style="font-size: 12px;">5</span>
+        </div>
+      </div>
+
+      <!-- Customization Questions -->
+      <div class="question-section" id="section8">
+        <div class="question">8. Type of painting</div>
+        <select id="painting">
+          <option value="Low Budget">Low Budget</option>
+          <option value="Medium">Medium</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section9">
+        <div class="question">9. Type of tiles</div>
+        <select id="tiles">
+          <option value="No Tiles">No Tiles</option>
+          <option value="Local Tiles">Local Tiles</option>
+          <option value="Mid Range">Mid Range</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section10">
+        <div class="question">10. Type of railings</div>
+        <select id="railings">
+          <option value="Steel">Steel</option>
+          <option value="Iron">Iron</option>
+          <option value="Toughened Glass">Toughened Glass</option>
+          <option value="Wooden">Wooden</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section11">
+        <div class="question">11. Granite in stairs & kitchen</div>
+        <select id="granite">
+          <option value="No Granite">No Granite</option>
+          <option value="Low Budget">Low Budget</option>
+          <option value="Mid Range">Mid Range</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section12">
+        <div class="question">12. Compound wall with gate?</div>
+        <select id="compoundWall">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section13">
+        <div class="question">13. Main door type</div>
+        <select id="mainDoor">
+          <option value="Carved Sakhuwa">Carved Sakhuwa</option>
+          <option value="Normal Door">Normal Door</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section14">
+        <div class="question">14. Indoor doors type</div>
+        <select id="indoorDoors">
+          <option value="Sakhuwa Door">Sakhuwa Door</option>
+          <option value="Normal Ready Made Door">Normal Ready Made Door</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section15">
+        <div class="question">15. Windows type</div>
+        <select id="windows">
+          <option value="UPVC">UPVC</option>
+          <option value="Aluminium">Aluminium</option>
+          <option value="Sakhuwa">Sakhuwa</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section16">
+        <div class="question">16. Window grills?</div>
+        <select id="windowGrill">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section17">
+        <div class="question">17. False ceiling?</div>
+        <select id="falseCeiling">
+          <option value="Yes">Yes</option>
+          <option value="Only in Living Room">Only in Living Room</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section18">
+        <div class="question">18. Sanitary fittings quality</div>
+        <select id="sanitaryFittings">
+          <option value="Budget Friendly">Budget Friendly</option>
+          <option value="Mid Range">Mid Range</option>
+          <option value="Premium">Premium</option>
+        </select>
+      </div>
+
+      <div class="question-section" id="section19">
+        <div class="question">19. Modular kitchen?</div>
+        <select id="modularKitchen">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+      </div>
+
+      <div class="button-container">
+        <button type="button" class="back-btn" id="backButton" disabled>
+          <i class="fas fa-arrow-left"></i> Back
+        </button>
+        <button type="button" id="nextButton">Next <i class="fas fa-arrow-right"></i></button>
+      </div>
+    </form>
+
+    <div class="result" id="resultSection">
+      <h2>Your Estimated House Cost</h2>
+      <div class="total-cost" id="totalCost">N/A</div>
+      
+      <div class="summary" id="summarySection">
+        <!-- Summary will be generated here -->
+      </div>
+      
+      <button type="button" class="pdf-btn" id="pdfButton" style="display: none;">
+        <i class="fas fa-file-pdf"></i> Download Quotation
+      </button>
+      
+      <button type="button" class="restart-btn" id="restartButton">
+        <i class="fas fa-redo"></i> Start New Calculation
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Initialize jsPDF
+    const { jsPDF } = window.jspdf;
+    
+    // Reference counter (stored in localStorage)
+    let refCounter = localStorage.getItem('quotationRefCounter');
+    if (!refCounter) {
+      refCounter = 1;
+      localStorage.setItem('quotationRefCounter', refCounter);
+    } else {
+      refCounter = parseInt(refCounter);
+    }
+
+    // Current question tracking
+    let currentQuestion = 1;
+    const totalQuestions = 19;
+    
+    // DOM elements
+    const backButton = document.getElementById('backButton');
+    const nextButton = document.getElementById('nextButton');
+    const restartButton = document.getElementById('restartButton');
+    const pdfButton = document.getElementById('pdfButton');
+    const progressBar = document.getElementById('progressBar');
+    
+    // Initialize slider values
+    document.getElementById('floors').addEventListener('input', function() {
+      // Convert to half floors (1, 1.5, 2, 2.5, etc.)
+      const value = parseInt(this.value);
+      const floorValue = value % 2 === 0 ? value / 2 : (value - 1) / 2 + 0.5;
+      document.getElementById('floorValue').innerText = floorValue;
+    });
+    
+    document.getElementById('groundRooms').addEventListener('input', function() {
+      document.getElementById('groundRoomsValue').innerText = this.value;
+    });
+    
+    document.getElementById('totalRooms').addEventListener('input', function() {
+      document.getElementById('totalRoomsValue').innerText = this.value;
+    });
+    
+    document.getElementById('bathrooms').addEventListener('input', function() {
+      document.getElementById('bathroomsValue').innerText = this.value;
+    });
+    
+    document.getElementById('kitchens').addEventListener('input', function() {
+      document.getElementById('kitchensValue').innerText = this.value;
+    });
+    
+    // Navigation functions
+    function showQuestion(questionNumber) {
+      // Hide all questions
+      document.querySelectorAll('.question-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // Show current question
+      document.getElementById(`section${questionNumber}`).classList.add('active');
+      
+      // Update progress bar
+      const progressPercentage = (questionNumber / totalQuestions) * 100;
+      progressBar.style.width = `${progressPercentage}%`;
+      
+      // Update button states
+      backButton.disabled = questionNumber === 1;
+      nextButton.textContent = questionNumber === totalQuestions ? 'Calculate' : 'Next';
+      nextButton.innerHTML = questionNumber === totalQuestions ? 
+        'Calculate <i class="fas fa-calculator"></i>' : 
+        'Next <i class="fas fa-arrow-right"></i>';
+    }
+    
+    function nextQuestion() {
+      if (currentQuestion < totalQuestions) {
+        currentQuestion++;
+        showQuestion(currentQuestion);
+      } else {
+        calculateCost();
+      }
+    }
+    
+    function prevQuestion() {
+      if (currentQuestion > 1) {
+        currentQuestion--;
+        showQuestion(currentQuestion);
+      }
+    }
+    
+    // Function to generate PDF quotation
+    function generateQuotationPDF(data) {
+      const doc = new jsPDF();
+      
+      // Company header
+      doc.setFontSize(16);
+      doc.setFont('helvetica', 'bold');
+      doc.setTextColor(35, 101, 223); // SATWA blue
+      doc.text('SATWA ENGINEERING CONSULTANTS PVT. LTD.', 105, 15, { align: 'center' });
+      
+      doc.setFontSize(10);
+      doc.setTextColor(0, 0, 0);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Dharan 16, Sunsari, Nepal | +977 9817355639 | +977 9862290294', 105, 22, { align: 'center' });
+      
+      // Quotation header
+      doc.setFontSize(14);
+      doc.setFont('helvetica', 'bold');
+      doc.text('QUOTATION FOR HOUSE CONSTRUCTION', 105, 32, { align: 'center' });
+      
+      // Reference and date
+      const today = new Date();
+      const formattedDate = today.toLocaleDateString('en-US', { 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+      });
+      
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Ref: Q-${String(refCounter).padStart(5, '0')}`, 15, 40);
+      doc.text(`Date: ${formattedDate}`, 105, 40, { align: 'center' });
+      doc.text(`Prepared for: Client`, 180, 40, { align: 'right' });
+      
+      // Add a line
+      doc.setDrawColor(35, 101, 223);
+      doc.setLineWidth(0.5);
+      doc.line(15, 45, 195, 45);
+      
+      // Project summary table
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Project Summary', 15, 55);
+      
+      const summaryData = [
+        ['Project Type', data.projectType],
+        ['Basement', data.basement],
+        ['Floors', data.floors],
+        ['Ground Floor Rooms', data.groundRooms],
+        ['Total Rooms', data.totalRooms],
+        ['Bathrooms', data.bathrooms],
+        ['Kitchens', data.kitchens],
+        ['Total Area', `${data.totalArea} sq.ft.`]
+      ];
+      
+      doc.autoTable({
+        startY: 60,
+        head: [['Item', 'Value']],
+        body: summaryData,
+        theme: 'grid',
+        headStyles: {
+          fillColor: [35, 101, 223],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold'
+        },
+        styles: {
+          cellPadding: 5,
+          fontSize: 10
+        },
+        columnStyles: {
+          0: { cellWidth: 70, fontStyle: 'bold' },
+          1: { cellWidth: 'auto' }
+        }
+      });
+      
+      // Specifications table
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Specifications', 15, doc.autoTable.previous.finalY + 15);
+      
+      const specsData = [
+        ['Painting Quality', data.painting],
+        ['Tiles Quality', data.tiles],
+        ['Railings Type', data.railings],
+        ['Granite', data.granite],
+        ['Compound Wall', data.compoundWall],
+        ['Main Door', data.mainDoor],
+        ['Indoor Doors', data.indoorDoors],
+        ['Windows', data.windows],
+        ['Window Grills', data.windowGrill],
+        ['False Ceiling', data.falseCeiling],
+        ['Sanitary Fittings', data.sanitaryFittings],
+        ['Modular Kitchen', data.modularKitchen]
+      ];
+      
+      doc.autoTable({
+        startY: doc.autoTable.previous.finalY + 20,
+        head: [['Specification', 'Value']],
+        body: specsData,
+        theme: 'grid',
+        headStyles: {
+          fillColor: [35, 101, 223],
+          textColor: [255, 255, 255],
+          fontStyle: 'bold'
+        },
+        styles: {
+          cellPadding: 5,
+          fontSize: 10
+        },
+        columnStyles: {
+          0: { cellWidth: 70, fontStyle: 'bold' },
+          1: { cellWidth: 'auto' }
+        }
+      });
+      
+      // Cost summary
+      doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
+      doc.text('Cost Summary', 15, doc.autoTable.previous.finalY + 15);
+      
+      doc.autoTable({
+        startY: doc.autoTable.previous.finalY + 20,
+        body: [
+          ['Total Estimated Cost', data.totalCost],
+        ],
+        theme: 'grid',
+        styles: {
+          cellPadding: 5,
+          fontSize: 12,
+          textColor: [35, 101, 223],
+          fontStyle: 'bold',
+          halign: 'right'
+        },
+        columnStyles: {
+          0: { cellWidth: 70, fontStyle: 'bold', textColor: [0, 0, 0] },
+          1: { cellWidth: 'auto' }
+        }
+      });
+      
+      // Footer notes
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'italic');
+      doc.text('Notes:', 15, doc.autoTable.previous.finalY + 15);
+      doc.text('- This is an estimated cost based on the provided specifications', 20, doc.autoTable.previous.finalY + 25);
+      doc.text('- Final cost may vary based on actual site conditions and material availability', 20, doc.autoTable.previous.finalY + 30);
+      doc.text('- Valid for 30 days from the date of issue', 20, doc.autoTable.previous.finalY + 35);
+      
+      // Signature line
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.text('Authorized Signature', 160, doc.autoTable.previous.finalY + 50);
+      doc.line(160, doc.autoTable.previous.finalY + 53, 190, doc.autoTable.previous.finalY + 53);
+      doc.text('SATWA Engineering Consultants', 160, doc.autoTable.previous.finalY + 60);
+      
+      // Save the PDF
+      doc.save(`SATWA_Quotation_${String(refCounter).padStart(5, '0')}.pdf`);
+      
+      // Increment the reference counter
+      refCounter++;
+      localStorage.setItem('quotationRefCounter', refCounter);
+    }
+
+    // Event listeners for navigation
+    nextButton.addEventListener('click', nextQuestion);
+    backButton.addEventListener('click', prevQuestion);
+    restartButton.addEventListener('click', restartCalculator);
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'ArrowRight') {
+        nextQuestion();
+      } else if (e.key === 'ArrowLeft') {
+        prevQuestion();
+      }
+    });
+    
+    // Mobile menu toggle function (matches main site)
+    function toggleMenu() {
+      const navList = document.querySelector('.nav-list');
+      navList.classList.toggle('show');
+    }
+    
+    // Calculate the total cost
+    function calculateCost() {
+      // Get values from the form
+      const projectType = document.getElementById('projectType').value;
+      const basement = document.getElementById('basement').value;
+      
+      // Handle half floors (1.5, 2.5, etc.)
+      const floorsInput = parseInt(document.getElementById('floors').value);
+      const floors = floorsInput % 2 === 0 ? floorsInput / 2 : (floorsInput - 1) / 2 + 0.5;
+      
+      const groundRooms = parseInt(document.getElementById('groundRooms').value);
+      const totalRooms = parseInt(document.getElementById('totalRooms').value);
+      const bathrooms = parseInt(document.getElementById('bathrooms').value);
+      const kitchens = parseInt(document.getElementById('kitchens').value);
+      const painting = document.getElementById('painting').value;
+      const tiles = document.getElementById('tiles').value;
+      const railings = document.getElementById('railings').value;
+      const granite = document.getElementById('granite').value;
+      const compoundWall = document.getElementById('compoundWall').value;
+      const mainDoor = document.getElementById('mainDoor').value;
+      const indoorDoors = document.getElementById('indoorDoors').value;
+      const windows = document.getElementById('windows').value;
+      const windowGrill = document.getElementById('windowGrill').value;
+      const falseCeiling = document.getElementById('falseCeiling').value;
+      const sanitaryFittings = document.getElementById('sanitaryFittings').value;
+      const modularKitchen = document.getElementById('modularKitchen').value;
+
+      // Base rate and calculations
+      const MINIMUM_RATE = 2700; // Minimum rate per sq.ft
+      const baseRate = 1500;
+      let finalRate = baseRate;
+
+      // Project type multiplier
+      let projectMultiplier = 1;
+      if (projectType === "Commercial") projectMultiplier = 1.2;
+      else if (projectType === "Residential cum Commercial") projectMultiplier = 1.1;
+
+      // Basement cost
+      const basementCost = basement === "Yes" ? 500000 : 0;
+
+      // Painting
+      if (painting === "Low Budget") finalRate += 100;
+      else if (painting === "Medium") finalRate += 150;
+      else if (painting === "Premium") finalRate += 250;
+
+      // Tiles
+      if (tiles === "Local Tiles") finalRate += 300;
+      else if (tiles === "Mid Range") finalRate += 450;
+      else if (tiles === "Premium") finalRate += 600;
+      else if (tiles === "No Tiles") finalRate += 100;
+
+      // Railings
+      if (railings === "Steel") finalRate += 150;
+      else if (railings === "Iron") finalRate += 100;
+      else if (railings === "Toughened Glass") finalRate += 350;
+      else if (railings === "Wooden") finalRate += 350;
+
+      // Granite
+      if (granite === "Low Budget") finalRate += 35;
+      else if (granite === "Mid Range") finalRate += 55;
+      else if (granite === "Premium") finalRate += 70;
+      else if (granite === "No Granite") finalRate += 20;
+
+      // Main Door
+      if (mainDoor === "Carved Sakhuwa") finalRate += 100;
+      else finalRate += 50;
+
+      // Indoor Doors
+      if (indoorDoors === "Sakhuwa Door") finalRate += 100;
+      else finalRate += 50;
+
+      // Windows
+      if (windows === "UPVC") finalRate += 200;
+      else if (windows === "Aluminium") finalRate += 100;
+      else finalRate += 400;
+
+      // Sanitary Fittings
+      if (sanitaryFittings === "Budget Friendly") finalRate += 200;
+      else if (sanitaryFittings === "Mid Range") finalRate += 400;
+      else finalRate += 600;
+
+      // Apply project multiplier
+      finalRate = finalRate * projectMultiplier;
+
+      // Ensure minimum rate of 2800
+      finalRate = Math.max(finalRate, MINIMUM_RATE);
+
+      // Window Grill
+      const windowGrillCost = windowGrill === "Yes" ? 150000 : 0;
+
+      // False Ceiling
+      let falseCeilingCost = 0;
+      if (falseCeiling === "Yes") falseCeilingCost = 200000;
+      else if (falseCeiling === "Only in Living Room") falseCeilingCost = 60000;
+
+      // Compound Wall
+      const compoundWallCost = compoundWall === "Yes" ? 400000 : 0;
+
+      // Modular Kitchen
+      const modularKitchenCost = modularKitchen === "Yes" ? 500000 : 0;
+
+      // Room Area Calculation
+      const roomArea = 144; // each room
+      const groundFloorArea = (groundRooms + 2) * roomArea * 1.2;
+      const totalArea = groundFloorArea * floors;
+
+      // Final cost calculation
+      const totalCost = (finalRate * totalArea) + basementCost + windowGrillCost + 
+                       falseCeilingCost + compoundWallCost + modularKitchenCost;
+
+      // Format the cost with commas
+      const formattedCost = new Intl.NumberFormat('en-US').format(Math.round(totalCost)) + ' NPR';
+      
+      // Show result
+      document.getElementById('costCalculatorForm').style.display = 'none';
+      document.getElementById('resultSection').style.display = 'block';
+      document.getElementById('totalCost').innerText = formattedCost;
+      
+      // Generate summary data for display and PDF
+      const summaryData = {
+        projectType,
+        basement,
+        floors,
+        groundRooms,
+        totalRooms,
+        bathrooms,
+        kitchens,
+        painting,
+        tiles,
+        railings,
+        granite,
+        compoundWall,
+        mainDoor,
+        indoorDoors,
+        windows,
+        windowGrill,
+        falseCeiling,
+        sanitaryFittings,
+        modularKitchen,
+        totalArea: Math.round(totalArea),
+        totalCost: formattedCost
+      };
+
+      // Generate summary display (without rate)
+      generateSummary(summaryData);
+      
+      // Show PDF button and set up click handler
+      pdfButton.style.display = 'inline-block';
+      pdfButton.onclick = () => generateQuotationPDF(summaryData);
+    }
+    
+    function generateSummary(data) {
+      const summarySection = document.getElementById('summarySection');
+      summarySection.innerHTML = `
+        <div class="summary-item"><span>Project Type:</span> <span>${data.projectType}</span></div>
+        <div class="summary-item"><span>Basement:</span> <span>${data.basement}</span></div>
+        <div class="summary-item"><span>Floors:</span> <span>${data.floors}</span></div>
+        <div class="summary-item"><span>Ground Floor Rooms:</span> <span>${data.groundRooms}</span></div>
+        <div class="summary-item"><span>Total Rooms:</span> <span>${data.totalRooms}</span></div>
+        <div class="summary-item"><span>Bathrooms:</span> <span>${data.bathrooms}</span></div>
+        <div class="summary-item"><span>Kitchens:</span> <span>${data.kitchens}</span></div>
+        <div class="summary-item"><span>Total Area:</span> <span>${data.totalArea} sq.ft.</span></div>
+        <div class="summary-item"><span>Painting Quality:</span> <span>${data.painting}</span></div>
+        <div class="summary-item"><span>Tiles Quality:</span> <span>${data.tiles}</span></div>
+        <div class="summary-item"><span>Railings Type:</span> <span>${data.railings}</span></div>
+        <div class="summary-item"><span>Granite:</span> <span>${data.granite}</span></div>
+        <div class="summary-item"><span>Compound Wall:</span> <span>${data.compoundWall}</span></div>
+        <div class="summary-item"><span>Main Door:</span> <span>${data.mainDoor}</span></div>
+        <div class="summary-item"><span>Indoor Doors:</span> <span>${data.indoorDoors}</span></div>
+        <div class="summary-item"><span>Windows:</span> <span>${data.windows}</span></div>
+        <div class="summary-item"><span>Window Grills:</span> <span>${data.windowGrill}</span></div>
+        <div class="summary-item"><span>False Ceiling:</span> <span>${data.falseCeiling}</span></div>
+        <div class="summary-item"><span>Sanitary Fittings:</span> <span>${data.sanitaryFittings}</span></div>
+        <div class="summary-item"><span>Modular Kitchen:</span> <span>${data.modularKitchen}</span></div>
+        <div class="summary-item" style="margin-top: 20px; padding-top: 10px; border-top: 1px solid var(--border-color);">
+          <span style="font-weight: bold;">Estimated Total Cost:</span> 
+          <span style="font-weight: bold; color: var(--primary-color);">${data.totalCost}</span>
+        </div>
+      `;
+    }
+    
+    function restartCalculator() {
+      // Reset form
+      document.getElementById('costCalculatorForm').style.display = 'block';
+      document.getElementById('resultSection').style.display = 'none';
+      pdfButton.style.display = 'none';
+      
+      // Reset to first question
+      currentQuestion = 1;
+      showQuestion(currentQuestion);
+      
+      // Reset form values
+      document.getElementById('floors').value = 2;
+      document.getElementById('floorValue').innerText = '1';
+      document.getElementById('groundRooms').value = 2;
+      document.getElementById('groundRoomsValue').innerText = '2';
+      document.getElementById('totalRooms').value = 3;
+      document.getElementById('totalRoomsValue').innerText = '3';
+      document.getElementById('bathrooms').value = 2;
+      document.getElementById('bathroomsValue').innerText = '2';
+      document.getElementById('kitchens').value = 1;
+      document.getElementById('kitchensValue').innerText = '1';
+    }
+    
+    // Initialize first question
+    showQuestion(1);
+  </script>
+</body>
+</html>

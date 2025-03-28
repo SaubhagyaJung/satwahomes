@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="photo/satwa-4.png" />
+  <title>SATWA</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap"
+    rel="stylesheet"
+  />
+  <!-- Font Awesome (for icons) -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <style>
+    /*********************************************************
+       GLOBAL STYLES & RESETS
+    **********************************************************/
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      color: #000;
+      background-color: #fff;
+      line-height: 1.6;
+      
+    }
+    
+    * {
+      box-sizing: border-box;
+    }
+
+    /*********************************************************
+       HEADER & NAV
+    **********************************************************/
+    .main-header {
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      background: #fff;
+      width: 100%;
+      border-bottom: 0px solid #eee;
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 134px; /* Large-screen spacing */
+      position: relative;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #000;
+      margin-left: 1rem;
+      margin-top: 17px;
+    }
+    .logo a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      display: inline-block;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      text-transform: lowercase;
+    }
+    .logo a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: #000;
+      transition: width 0.3s ease;
+    }
+    .logo a:hover::after {
+      width: 100%;
+    }
+    .nav-list {
+      display: flex;
+      list-style: none;
+      justify-content: flex-end;
+      margin-right: 1rem;
+    }
+    .nav-list li {
+      margin-left: 2rem;
+    }
+    .nav-list a {
+      text-decoration: none;
+      color: #000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+    }
+    .menu-icon {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      margin-right: 1.5rem;
+    }
+    .menu-icon div {
+      width: 15px;
+      height: 0.6px;
+      background-color: #000;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+    @media (max-width: 768px) {
+      .navbar {
+        margin-right: 0;
+      }
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #fff;
+        width: 100%;
+        padding: 1rem;
+        border-top: 1px solid #ccc;
+      }
+      .nav-list li {
+        margin-left: 0;
+        margin-bottom: 1rem;
+      }
+      .nav-list a {
+        font-size: 1rem;
+        display: block;
+      }
+      .menu-icon {
+        display: flex;
+      }
+      .nav-list.show {
+        display: flex;
+      }
+    }
+
+    /*********************************************************
+       HOME SECTION (Full-Page Video)
+    **********************************************************/
+    .home-section {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      margin-top: 0;
+      padding-top: 0;
+      z-index: -1;
+    }
+    .home-section video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+    @media (max-width: 768px) {
+      .home-section {
+    height: 50vh; /* Ensure it takes the full height on mobile */
+  }
+
+  .home-section video {
+    height: 50vh; /* 50% of viewport height on mobile */
+  }
+
+   /* Ensure content below starts right after the video */
+   .brand-section {
+      margin-top: 0;
+    }
+  }
+
+
+    /*********************************************************
+       OUR PROJECTS SECTION
+    **********************************************************/
+    .our-projects {
+      background: #ffffff;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+    .our-projects h2 {
+      font-size: 20px;
+      margin-bottom: 2rem;
+      color: #000;
+      text-transform: uppercase;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 30px;
+      border: 0.1px solid #3333334a;
+    }
+    .project-card img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .project-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #2365df8a;
+      backdrop-filter: blur(5px);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .project-card:hover .project-overlay {
+      opacity: 1;
+    }
+    .project-info {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      position: relative;
+      transition: transform 0.1s ease;
+    }
+    .location-icon {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+    .hidden-project {
+      display: none;
+    }
+    .see-more-btn {
+      margin-top: 3rem;
+      padding: 0.75rem 1.5rem;
+      background: #2365DF;
+      color: #fff;
+      border: none;
+      border-radius: 15px;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.3s, color 0.3s, transform 0.2s;
+    }
+    .see-more-btn:hover {
+      background: #fff;
+      color: #333;
+      transform: scale(1.05);
+      border: 0.1px solid #3333334a;
+    }
+
+    /*********************************************************
+       SLIDING CARDS SECTION
+    **********************************************************/
+    .sliding-cards-section {
+      background: #F2F5FB;
+      color: #000;
+      width: 100vw;
+      min-height: 100vh;
+      padding: 3rem 1rem;
+      text-align: center;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+ 
+    .sliding-cards-section h2 {
+      font-size: 2rem;
+      margin-bottom: 5rem;
+      margin-top: -50px;
+    }
+    .slider-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      max-width: 90vw;
+      height: 60vh;
+    }
+    .slider {
+      display: flex;
+      gap: 1rem;
+      overflow: hidden;
+      scroll-behavior: smooth;
+      width: 100%;
+    }
+    .slide-card, .slide-card1 {
+      flex: 0 0 375px;
+      border-radius: 20px;
+      padding: 2rem 1rem;
+      text-align: left;
+      transition: background 0.3s ease, color 0.3s ease;
+      height: 400px;
+      border: 0.1px solid #3333334a;
+    }
+    .slide-card h2,
+    .slide-card p {
+      color: #ffffff;
+      margin: 0 0 0.5rem 0;
+      transition: color 0.3s ease;
+    }
+    .slide-card:hover {
+      background: #F2F5FB;
+    }
+    .slide-card:hover h2,
+    .slide-card:hover p {
+      color: #000000;
+    }
+    .slide-card {
+      background: #2365DF;
+    }
+    .slide-card1 h2,
+    .slide-card1 p {
+      color: #fff;
+    }
+    .slide-card1:hover {
+      background: #F2F5FB;
+    }
+    .slide-card1:hover h2,
+    .slide-card1:hover p {
+      color: #020202;
+    }
+    .slider-btn {
+      background: none;
+      border: none;
+      color: #000;
+      font-size: 2rem;
+      cursor: pointer;
+      z-index: 1;
+      margin: 0 1rem;
+      transition: color 0.3s ease, transform 0.3s ease;
+    }
+    .slider-btn:hover {
+      transform: scale(1.2);
+    }
+    .slide-card:nth-child(2) {
+      background: #2365DF !important;
+      color: #fff !important;
+      border: 0.6px solid #fff;
+    }
+    .slide-card:nth-child(2) h2 {
+      color: #fff;
+    }
+    .slide-card:nth-child(2) p {
+      color: rgb(188, 182, 182);
+    }
+    .slide-card:nth-child(2):hover {
+      background: #F2F5FB !important;
+      border: 0.1px solid #3333334a !important;
+    }
+    .slide-card:nth-child(2):hover h2,
+    .slide-card:nth-child(2):hover p {
+      color: #333 !important;
+    }
+    .slide-card:nth-child(5) {
+      background: #2365DF !important;
+      color: #333 !important;
+      border: 0.6px solid #fff;
+    }
+    .slide-card:nth-child(5) h2,
+    .slide-card:nth-child(5) p {
+      color: #fff !important;
+    }
+    .slide-card:nth-child(5):hover {
+      background: #F2F5FB !important;
+      border: 0.1px solid #3333334a !important;
+    }
+    .slide-card:nth-child(5):hover h2,
+    .slide-card:nth-child(5):hover p {
+      color: #000 !important;
+    }
+
+    @media (max-width: 768px) {
+      .slide-card {
+  flex: 0 0 100%;
+  margin: 0 auto;
+  text-align: center;
+  height: 400px;
+
+  }
+
+  .slider-container {
+    max-width: 100%;
+  }
+}
+
+
+    /*********************************************************
+       BRAND SECTION
+    **********************************************************/
+    .brand-section {
+      background: #F2F6FC;
+      color: rgb(32, 32, 32);
+      padding: 2rem 1rem;
+      text-align: center;
+    }
+    .brand-section h2 {
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      margin-top: -15px;
+      font-weight: 200;
+    }
+    .brand-logos span {
+      font-size: 0.9rem;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    /* MARQUEE WRAPPER */
+    .brand-marquee {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #F2F6FC;
+      margin: 0 auto;
+      padding: 1rem 0;
+    }
+    /* MARQUEE TRACK */
+    .brand-marquee-track {
+      display: flex;
+      width: 200%; 
+      animation: scroll-marquee 20s linear infinite; 
+    }
+    /* INDIVIDUAL LOGO CONTAINER */
+    .brand-logo {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 150px;
+      margin: 0 2rem;
+    }
+    /* LOGO IMAGES */
+    .brand-logo img {
+      max-width: 120px;
+      height: auto;
+      display: block;
+    }
+    @keyframes scroll-marquee {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    .brand-marquee-track:hover {
+      animation-play-state: paused;
+    }
+
+    /*********************************************************
+       TESTIMONIALS SECTION (Scrolling)
+    **********************************************************/
+    .testimonials {
+      background: #fff;
+      padding: 4rem 1rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonials h2 {
+      font-size: small;
+      color: #2365DF;
+      font-weight: 530;
+      text-transform: uppercase;
+      margin-top: -15px;
+      margin-bottom: 10px;
+    }
+    .testimonials .main-heading {
+      font-size: 30px;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+    .testimonial-marquee {
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .testimonial-track {
+      display: flex;
+      gap: 2rem;
+      animation: marquee 30s linear infinite;
+    }
+    
+    .testimonial-card {
+      background: #F2F5FB;
+      border-radius: 10px;
+      padding: 2rem;
+      text-align: left;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+      width: 300px;
+      min-width: 300px;
+      flex-shrink: 0;
+    }
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .testimonial-photo {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 1rem;
+    }
+    .testimonial-text {
+      margin-bottom: 1.5rem;
+      color: #333;
+      line-height: 1.5;
+    }
+    .testimonial-author {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #000;
+    }
+    .testimonial-role {
+      color: #999;
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .star-rating {
+      color: #FFC107;
+    }
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /*********************************************************
+       CONTACT SECTION
+    **********************************************************/
+    .ne {
+      background: #F2F5FB;
+    }
+    .contact-container {
+      min-height: auto; 
+      padding: 2rem 1rem;
+      gap: 2rem;    
+      max-width: 100%;
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .contact-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;  
+      margin-top: 3rem;
+      margin-left: -100px;
+    }
+    .contact-left h1 {
+      font-size: 2rem; 
+      font-weight: 600;
+      margin: 0 0 1rem 0;
+    }
+    .contact-left p {
+      font-size: 1rem;
+      color: #777;
+      margin: 0 0 1rem;
+      font-weight: 400;
+    }
+    .social-icons {
+      display: flex;
+      gap: 2rem;
+      justify-content: center;
+    }
+    .social-icons a {
+      font-size: 25px;
+      color: #000;
+      text-decoration: none;
+      transition: transform 0.2s ease;
+    }
+    .social-icons a:hover {
+      transform: scale(1.1);
+    }
+    .contact-map {
+      margin-left: 300px;
+      background: #F2F6FC;
+      width: 400px;
+      height: 300px;
+    }
+    .contact-map iframe {
+      width: 400px;
+      height: 300px;
+      border: none;
+      border-radius: 30px;
+    }
+    .contact-right {
+      flex: 0 0 300px;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .contact-inquiries {
+      margin: 2rem 0;
+      font-size: 0.95rem;
+      color: #333;
+      text-align: left;
+    }
+    .contact-inquiries p {
+      margin-bottom: 0.7rem;
+      font-weight: 300;
+    }
+    .contact-inquiries strong {
+      font-weight: 600;
+    }
+    .contact-inquiries a {
+      color: #333;
+      text-decoration: none;
+    }
+    .contact-right p {
+      margin-bottom: 1rem;
+      font-size: 0.9rem;
+      color: #333;
+      line-height: 1.4;
+      font-weight: 100;
+    }
+    .contact-right a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 100;
+    }
+    .contact-right a:hover {
+      text-decoration: underline;
+    }
+    @media (max-width: 992px) {
+      .contact-container {
+        flex-wrap: wrap;
+      }
+      .contact-left,
+      .contact-map,
+      .contact-right {
+        flex: 1 1 100%;
+        margin-bottom: 2rem;
+      }
+      .contact-map iframe {
+        width: 100%;
+        height: 300px;
+      }
+    }
+    /* Additional mobile improvements for Contact Section */
+    @media (max-width: 768px) {
+      .contact-left {
+        margin-left: 0;
+        align-items: center;
+        text-align: center;
+      }
+      .contact-map {
+        margin-left: 0;
+      }
+    }
+
+
+  /*********************************************************
+       FOOTER - IMPROVED FOR MOBILE
+  **********************************************************/
+  .page-footer {
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem 1rem;
+    border-top: 0.3px solid #00000079;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    background: #F2F5FB;
+    text-align: center;
+    gap: 1rem;
+  }
+  
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 1rem;
+  }
+  
+  .footer-left a,
+  .footer-right a {
+    text-decoration: none;
+    color: #000;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+  
+  .footer-center {
+    font-weight: 400;
+    order: -1; /* Moves to top on mobile */
+    margin-bottom: 0.5rem;
+  }
+  
+  .footer-right a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .footer-right a i {
+    font-size: 1.1rem;
+  }
+
+  @media (min-width: 768px) {
+    .page-footer {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 3rem;
+      text-align: left;
+      gap: 0;
+    }
+    
+    .footer-center {
+      order: 0; /* Reset order for desktop */
+      margin-bottom: 0;
+    }
+    
+    .footer-left a,
+    .footer-right a {
+      margin-right: 1rem;
+    }
+    
+    .footer-left a:last-child,
+    .footer-right a:last-child {
+      margin-right: 0;
+    }
+  }
+
+
+
+
+    /*********************************************************
+       TEAM SECTION (IMPROVED)
+    **********************************************************/
+    .team-section {
+      background: white;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .team-section h2 {
+      font-size: small;
+      color: #2365DF;
+      font-weight: 530;
+      text-transform: uppercase;
+      margin-top: -15px;
+      margin-bottom: 10px;
+    }
+    .team-section .main-heading {
+      font-size: 30px;
+      font-weight: 600;
+      margin-top: 10px;
+      margin-bottom: 40px;
+    }
+    .team-marquee {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: #ffffff;
+      margin: 0 auto;
+      padding: 2rem 0;
+    }
+    .team-marquee-track {
+      display: flex;
+      width: 200%;
+      animation: scroll-team 30s linear infinite;
+    }
+    @keyframes scroll-team {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+    .team-marquee-track:hover {
+      animation-play-state: paused;
+    }
+    .team-card-improved {
+      flex: 0 0 auto;
+      width: 220px;
+      margin: 0 1rem;
+      background: #ffffff;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+    .team-card-improved:hover {
+      transform: translateY(-3px);
+    }
+    .team-card-improved img {
+      width: 100%;
+      height: 280px;
+      display: block;
+      border-radius: 20px;
+    }
+    .team-card-improved .card-info {
+      padding: 1rem;
+      text-align: center;
+    }
+    .team-card-improved .card-info h3 {
+      margin: 0.5rem 0 0.25rem 0;
+      font-size: 1rem;
+      color: #333;
+    }
+    .team-card-improved .card-info p {
+      margin: 0;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    .contact-icons {
+      margin-top: 0.75rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .contact-icons a {
+      color: #2365DF;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+    .contact-icons a:hover {
+      color: #004080;
+    }
+    .social-overlay {
+      position: absolute;
+      top: 62%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.411);
+      padding: 0.2rem 1rem;
+      border-radius: 10px;
+      display: none;
+      gap: 1rem;
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+    .team-card-improved:hover .social-overlay {
+      display: flex;
+    }
+    .social-overlay a {
+      color: #2365DF;
+      font-size: 1.1rem;
+      transition: color 0.3s;
+      text-decoration: none;
+    }
+
+    /*********************************************************
+       Main Blog Page
+    **********************************************************/
+    .blog-container {
+      background: #F2F5FB;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+    .blog-header {
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .blog-header h1 {
+      font-size: 2.5rem;
+      color: #2365DF;
+      margin-bottom: 0.5rem;
+      margin-top: 0px;
+      padding-top: 0%;
+    }
+    .blog-header p {
+      font-size: 1rem;
+      color: #666;
+    }
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .blog-post {
+      position: relative;
+      background: #F2F5FB;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+      
+    }
+    .blog-post:hover {
+      transform: translateY(-5px);
+    }
+    .post-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .post-content {
+      padding: 1rem;
+    }
+    .post-title {
+      font-size: 1.4rem;
+      margin-bottom: 0.5rem;
+      color: #2365DF;
+    }
+    .post-meta {
+      font-size: 0.85rem;
+      color: #999;
+      margin-bottom: 1rem;
+    }
+    .post-excerpt {
+      font-size: 1rem;
+      color: #555;
+      margin-bottom: 1rem;
+    }
+    .read-more {
+      font-weight: 600;
+      color: #2365DF;
+      transition: color 0.3s;
+    }
+    .read-more:hover {
+      color: #004080;
+    }
+    /* Mobile improvements for Blog Section:
+       - Only show the image
+       - Switch to single-column grid */
+    @media (max-width: 768px) {
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+      .post-content {
+        display: none;
+      }
+      .blog-post a {
+        display: block;
+      }
+    }
+
+    /* Footer (Optional) */
+    .footer {
+      text-align: center;
+      padding: 1rem;
+      background: #fff;
+      border-top: 1px solid #eee;
+      font-size: 0.85rem;
+      color: #666;
+    }
+
+    .chatbot-icon {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #2365DF;
+      width: 60px; 
+      height: 60px;
+      border-radius: 50%;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      color: #fff; 
+      font-size: 1.7rem;
+      cursor: pointer;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
+      z-index: 9999;
+    }
+    .chatbot-icon:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <!-- NAVIGATION -->
+  <header class="main-header">
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html" style="text-transform: lowercase;">
+          <img src="photo/logo2.png" alt="logo">
+        </a>
+      </div>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="nav-list">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="#blog">Updates</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="price.html">Calculator</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+  <!-- Chatbot Container (bottom-right corner) -->
+  <div class="chatbot-icon" id="chatbotIcon">
+    <i class="fab fa-facebook-messenger"></i>
+  </div>
+  <!-- HOME SECTION with Full-Page Video -->
+  <section id="home" class="home-section">
+    <video id="homeVideo" autoplay muted loop playsinline>
+      <source src="photo/vido.mp4" type="video/mp4" />
+      Your browser does not support HTML5 video.
+    </video>
+  </section>
+
+  <!-- BRANDS WE WORK WITH -->
+  <section class="brand-section">
+    <h2>
+      <span style="font-size: small; color: #2365DF; font-weight: 530;">BRANDS WE TRUST</span>
+    </h2>
+    <p style="margin-top: -15px; font-size: 30px; font-weight: 600; margin-bottom: 15px;">
+      What Brand We Use?
+    </p>
+    <div class="brand-marquee">
+      <div class="brand-marquee-track">
+        <div class="brand-logo"><img src="photo/Untitled (120 x 40 px)-3.png" alt="brand 1"></div>
+        <div class="brand-logo"><img src="photo/image copy 3.png" alt="brand 2"></div>
+        <div class="brand-logo"><img src="photo/image copy 4.png" alt="brand 3"></div>
+        <div class="brand-logo"><img src="photo/image copy 6.png" alt="brand 4"></div>
+        <div class="brand-logo"><img src="photo/image copy 7.png" alt="brand 5"></div>
+        <div class="brand-logo"><img src="photo/3 copy.png" alt="brand 6"></div>
+        <div class="brand-logo"><img src="photo/image copy 3.png" alt="brand 2 again"></div>
+        <div class="brand-logo"><img src="photo/image copy 4.png" alt="brand 3 again"></div>
+        <div class="brand-logo"><img src="photo/Untitled (120 x 40 px)-3.png" alt="brand 1"></div>
+        <div class="brand-logo"><img src="photo/image copy 3.png" alt="brand 2"></div>
+        <div class="brand-logo"><img src="photo/image copy 4.png" alt="brand 3"></div>
+        <div class="brand-logo"><img src="photo/image copy 6.png" alt="brand 4"></div>
+        <div class="brand-logo"><img src="photo/image copy 7.png" alt="brand 5"></div>
+        <div class="brand-logo"><img src="photo/3 copy.png" alt="brand 6"></div>
+        <div class="brand-logo"><img src="photo/image copy 3.png" alt="brand 2 again"></div>
+        <div class="brand-logo"><img src="photo/image copy 4.png" alt="brand 3 again"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUR PROJECTS SECTION -->
+  <section id="projects" class="our-projects">
+    <h2>
+      <span style="font-size: small; color: #2365DF; font-weight: 530;">our project</span>
+    </h2>
+    <p style="margin-top: -30px; font-size: 30px; font-weight: 600; margin-bottom: 60px;">Look At Our Featured Projects</p>
+    <div class="projects-grid">
+      <!-- Project 1 -->
+      <a href="project1.html">
+        <div class="project-card">
+          <img src="photo/1.png" alt="Project 1" />
+          <div class="project-overlay">
+            <div class="project-info">
+              <svg class="location-icon" viewBox="0 0 24 24">
+                <path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z" fill="currentColor"></path>
+              </svg>
+              <span class="project-title">Modern Architecture</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- Project 2 -->
+      <a href="project2.html">
+        <div class="project-card">
+          <img src="photo/2.png" alt="Project 2" />
+          <div class="project-overlay">
+            <div class="project-info">
+              <svg class="location-icon" viewBox="0 0 24 24">
+                <path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z" fill="currentColor"></path>
+              </svg>
+              <span class="project-title">Urban Station</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- Project 3 -->
+      <a href="project3.html">
+        <div class="project-card">
+          <img src="photo/3.png" alt="Project 3" />
+          <div class="project-overlay">
+            <div class="project-info">
+              <svg class="location-icon" viewBox="0 0 24 24">
+                <path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z" fill="currentColor"></path>
+              </svg>
+              <span class="project-title">Industrial Pipeworks</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- Project 4 -->
+      <a href="project4.html">
+        <div class="project-card">
+          <img src="photo/4.png" alt="Project 4" />
+          <div class="project-overlay">
+            <div class="project-info">
+              <svg class="location-icon" viewBox="0 0 24 24">
+                <path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z" fill="currentColor"></path>
+              </svg>
+              <span class="project-title">Minimalist Bridge</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- Project 5 (hidden by default) -->
+      <a href="project5.html">
+        <div class="project-card hidden-project">
+          <img src="photo/1.png" alt="Project 5" />
+          <div class="project-overlay">
+            <div class="project-info">
+              <svg class="location-icon" viewBox="0 0 24 24">
+                <path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z" fill="currentColor"></path>
+              </svg>
+              <span class="project-title">Futuristic Hallway</span>
+            </div>
+          </div>
+        </div>
+      </a>
+      <!-- Project 6 (hidden by default) -->
+      <a href="project6.html">
+        <div class="project-card hidden-project">
+          <img src="photo/2.png" alt="Project 6" />
+          <div class="project-overlay">
+            <div class="project-info">
+              <svg class="location-icon" viewBox="0 0 24 24">
+                <path d="M12 2C8.1 2 5 5.1 5 9c0 5.3 7 13 7 13s7-7.7 7-13c0-3.9-3.1-7-7-7zm0 9.5c-1.4 0-2.5-1.1-2.5-2.5S10.6 6.5 12 6.5s2.5 1.1 2.5 2.5S13.4 11.5 12 11.5z" fill="currentColor"></path>
+              </svg>
+              <span class="project-title">Conceptual Tunnel</span>
+            </div>
+          </div>
+        </div>
+      </a>
+    </div>
+    <button class="see-more-btn">See More</button>
+  </section>
+
+  <!-- SLIDING CARDS SECTION -->
+  <section class="sliding-cards-section">
+    <h2>
+      <span style="font-size: small; color: #2365DF; font-weight: 530;">OUR SERVICES</span>
+    </h2>
+    <p style="margin-top: -80px; font-size: 30px; font-weight: 600; margin-bottom: 15px;">What We DO</p>
+    <div class="slider-container">
+      <button class="slider-btn prev-btn">&#10094;</button>
+      <div class="slider" id="slider">
+        <!-- Card 1 -->
+        <div class="slide-card">
+          <h2 style="font-weight: 50; letter-spacing: -1.5px;">Construction</h2>
+          <p style="color: rgb(188, 182, 182); margin-top: 20px;">
+            We build with purpose — combining modern design, quality materials, 
+            and expert craftsmanship to create lasting spaces that inspire.
+          </p>
+        </div>
+        <!-- Card 2 -->
+        <div class="slide-card">
+          <h2 style="font-weight: 50; letter-spacing: -1.5px;">Design</h2>
+          <p style="color: rgb(188, 182, 182); margin-top: 20px;">
+            Our designs blend minimalism and functionality, creating spaces that are 
+            both beautiful and purposeful.
+          </p>
+        </div>
+        <!-- Card 3 -->
+        <div class="slide-card">
+          <h2 style="font-weight: 100; letter-spacing: -1.5px;">Consulting</h2>
+          <p style="color: rgb(188, 182, 182); margin-top: 20px;">
+            We provide expert guidance to turn your vision into a clear, actionable plan — 
+            from concept to completion.
+          </p>
+        </div>
+        <!-- Card 4 -->
+        <div class="slide-card">
+          <h2 style="font-weight: 100; letter-spacing: -1.5px;">Supervision</h2>
+          <p style="color: rgb(188, 182, 182); margin-top: 20px;">
+            We ensure every detail is executed to perfection with on-site oversight and 
+            quality-focused coordination.
+          </p>
+        </div>
+        <!-- Card 5 -->
+        <div class="slide-card">
+          <h2 style="font-weight: 100; letter-spacing: -1.5px;">Interior Design</h2>
+          <p style="color: rgb(188, 182, 182);">
+            We craft interiors that balance aesthetics and comfort, 
+            tailored to reflect your lifestyle and vision.
+          </p>
+        </div>
+        <!-- Card 6 -->
+        <div class="slide-card">
+          <h2 style="font-weight: 100; letter-spacing: -1.5px;">Valuation</h2>
+          <p style="color: rgb(188, 182, 182);">
+            We provide accurate, data-driven property and project valuations 
+            to guide confident decisions.
+          </p>
+        </div>
+      </div>
+      <button class="slider-btn next-btn">&#10095;</button>
+    </div>
+  </section>
+
+  <!-- TEAM SECTION (IMPROVED) -->
+  <section class="team-section">
+    <h2>MEET OUR TEAM</h2>
+    <p class="main-heading">OUR TEAMS</p>
+    <div class="team-marquee">
+      <div class="team-marquee-track">
+        <div class="team-card-improved">
+          <img src="photo/468286502_27648387278140107_5691600372600667268_n.jpg" alt="Er. Pratham Thapa" />
+          <div class="card-info">
+            <h3>Er. Pratham Thapa</h3>
+            <p>Civil Engineer</p>
+            <div class="contact-icons">
+              <a href="tel:+9779817355639" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:esther@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="https://www.facebook.com/thapaxpratham" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/prathamthapaa/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="team-card-improved">
+          <img src="photo/image copy 13.png" alt="Er. Rabin Dahal" />
+          <div class="card-info">
+            <h3>Er. Rabin Dahal</h3>
+            <p>Civil Engineer</p>
+            <div class="contact-icons">
+              <a href="tel:+1234567890" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:chris@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="https://www.facebook.com/rabin.roshan.9" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            
+            <a href="https://www.instagram.com/rabin_dahal25/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="team-card-improved">
+          <img src="photo/Untitled design-16.png" alt="Ar. Mansun Rai" />
+          <div class="card-info">
+            <h3>Ar. Mansun Rai</h3>
+            <p>Architect</p>
+            <div class="contact-icons">
+              <a href="tel:+1234567890" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:robert@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="https://www.facebook.com/mansun.rai.73" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            
+            <a href="https://www.instagram.com/mansunrai/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="team-card-improved">
+          <img src="photo/image copy 15.png" alt="Aashis Angdembe" />
+          <div class="card-info">
+            <h3>Aashis Angdembe</h3>
+            <p>Sub Civil Engineer</p>
+            <div class="contact-icons">
+              <a href="tel:+9779842032134" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:annette@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="team-card-improved">
+          <img src="photo/image copy 8.png" alt="New Member" />
+          <div class="card-info">
+            <h3>Saubhagya J. Thapa</h3>
+            <p>IT Engineer</p>
+            <div class="contact-icons">
+              <a href="tel:+1234567890" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:newmember@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="https://www.facebook.com/saubhagya.jungthapa.7/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            
+            <a href="https://www.instagram.com/100.bhagya_/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <!-- Duplicate set for seamless loop -->
+        <div class="team-card-improved">
+          <img src="photo/468286502_27648387278140107_5691600372600667268_n.jpg" alt="Er. Pratham Thapa" />
+          <div class="card-info">
+            <h3>Er. Pratham Thapa</h3>
+            <p>Civil Engineer</p>
+            <div class="contact-icons">
+              <a href="tel:+9779817355639" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:esther@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="https://www.facebook.com/thapaxpratham" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/prathamthapaa/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+           
+          </div>
+        </div>
+        <div class="team-card-improved">
+          <img src="photo/image copy 13.png" alt="Er. Rabin Dahal" />
+          <div class="card-info">
+            <h3>Er. Rabin Dahal</h3>
+            <p>Civil Engineer</p>
+            <div class="contact-icons">
+              <a href="tel:+9779817355639" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:esther@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="https://www.facebook.com/rabin.roshan.9" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            
+            <a href="https://www.instagram.com/rabin_dahal25/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+
+          </div>
+        </div>
+        <div class="team-card-improved">
+          <img src="photo/Untitled design-16.png" alt="Ar. Mansun Rai" />
+          <div class="card-info">
+            <h3>Ar. Mansun Rai</h3>
+            <p>Architect</p>
+            <div class="contact-icons">
+              <a href="tel:+1234567890" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:robert@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="https://www.facebook.com/mansun.rai.73" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            
+            <a href="https://www.instagram.com/mansunrai/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="team-card-improved">
+          <img src="photo/image copy 15.png" alt="Aashis Angdembe" />
+          <div class="card-info">
+            <h3>Aashis Angdembe</h3>
+            <p>Sub Civil Engineer</p>
+            <div class="contact-icons">
+              <a href="tel:+9779842032134" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:annette@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+        <div class="team-card-improved">
+          <img src="photo/image copy 8.png" alt="New Member" />
+          <div class="card-info">
+            <h3>Saubhagya J. Thapa</h3>
+            <p>IT Engineer</p>
+            <div class="contact-icons">
+              <a href="tel:+1234567890" aria-label="Phone"><i class="fas fa-phone"></i></a>
+              <a href="mailto:newmember@example.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+            </div>
+          </div>
+          <div class="social-overlay">
+            <a href="https://www.facebook.com/saubhagya.jungthapa.7/" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+            
+            <a href="https://www.instagram.com/100.bhagya_/" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Blog Container -->
+  <div class="blog-container">
+    <div class="blog-header">
+      <h1 id="blog">Updates</h1>
+      <p style="margin-top: -10px; margin-bottom: 90px;">Latest updates, trends, and insights.</p>
+    </div>
+    <div class="blog-grid">
+      <!-- Blog Post 1 -->
+      <div class="blog-post">
+        <a href="blog-detail1.html?id=1">
+          <img src="photo/image copy 17.png" alt="Blog Post 1" class="post-image" />
+        </a>
+        <div class="post-content">
+          <h2 class="post-title">How to Build a Sustainable Home</h2>
+          <p class="post-meta">By John Doe | March 22, 2025</p>
+          <p class="post-excerpt">
+            Discover the latest in sustainable construction techniques and materials that make building eco-friendly homes easier than ever.
+          </p>
+          <a href="blog-detail1.html?id=1" class="read-more">Read More &raquo;</a>
+        </div>
+      </div>
+      <!-- Blog Post 2 -->
+      <div class="blog-post">
+        <a href="blog.html?id=2">
+          <img src="photo/image copy 18.png" alt="Blog Post 2" class="post-image" />
+        </a>
+        <div class="post-content">
+          <h2 class="post-title">Modern Interior Design Trends</h2>
+          <p class="post-meta">By Jane Smith | March 20, 2025</p>
+          <p class="post-excerpt">
+            Explore modern interior design trends that blend functionality with aesthetics, inspiring you to create beautiful living spaces.
+          </p>
+          <a href="blog.html?id=2" class="read-more">Read More &raquo;</a>
+        </div>
+      </div>
+      <!-- Blog Post 3 -->
+      <div class="blog-post">
+        <a href="blog2.html?id=3">
+          <img src="photo/image copy 20.png" alt="Blog Post 3" class="post-image" />
+        </a>
+        <div class="post-content">
+          <h2 class="post-title">Top 10 Construction Innovations</h2>
+          <p class="post-meta">By Alex Johnson | March 18, 2025</p>
+          <p class="post-excerpt">
+            A rundown of the most innovative construction techniques and tools transforming the building industry today.
+          </p>
+          <a href="blog2.html?id=3" class="read-more">Read More &raquo;</a>
+        </div>
+      </div>
+      <!-- Blog Post 4 -->
+      <div class="blog-post">
+        <a href="blog3.html?id=4">
+          <img src="photo/image copy 21.png" alt="Blog Post 4" class="post-image" />
+        </a>
+        <div class="post-content">
+          <h2 class="post-title">Top 10 Construction Innovations</h2>
+          <p class="post-meta">By Alex Johnson | March 18, 2025</p>
+          <p class="post-excerpt">
+            A rundown of the most innovative construction techniques and tools transforming the building industry today.
+          </p>
+          <a href="blog3.html?id=4" class="read-more">Read More &raquo;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS SECTION (Scrolling) -->
+  <section class="testimonials" id="testimonials">
+    <h2>CLINTS TESTIMONIALS</h2>
+    <p class="main-heading" style="margin-top: 10px;">What People Says</p>
+    <div class="testimonial-marquee">
+      <div class="testimonial-track">
+        <!-- Testimonial Card 1 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="photo/male2.webp" alt="Client Photo" class="testimonial-photo">
+            <div>
+              <h4 class="testimonial-author">Nirmala Adhikari</h4>
+              <p class="testimonial-role">Dharan, Sunsari</p>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            "I am extremely happy with the management services. They keep everything in perfect shape."
+          </p>
+          <div class="star-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <!-- Testimonial Card 2 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="photo/female2.webp" alt="Client Photo" class="testimonial-photo">
+            <div>
+              <h4 class="testimonial-author">Shreya Koirala</h4>
+              <p class="testimonial-role">Itahari, Halgada</p>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            "They found the perfect home for me. The entire process was smooth, and the staff was very friendly."
+          </p>
+          <div class="star-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <!-- Testimonial Card 3 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="photo/male1.webp" alt="Client Photo" class="testimonial-photo">
+            <div>
+              <h4 class="testimonial-author">Nikesh Puri</h4>
+              <p class="testimonial-role">Dharan, Sunsari</p>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            "I never thought real estate investing could be so simple until I met this amazing team. Highly recommended!"
+          </p>
+          <div class="star-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <!-- Testimonial Card 4 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="photo/female1.webp" alt="Client Photo" class="testimonial-photo">
+            <div>
+              <h4 class="testimonial-author">Ramila Shrestha</h4>
+              <p class="testimonial-role">Biratnagar</p>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            "Professional, responsive, and trustworthy. They really go above and beyond for their clients."
+          </p>
+          <div class="star-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <!-- Testimonial Card 5 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="photo/female.webp" alt="Client Photo" class="testimonial-photo">
+            <div>
+              <h4 class="testimonial-author">Namrata Karki</h4>
+              <p class="testimonial-role">Itahari</p>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            "I appreciate their honest approach and thorough market research. I felt confident every step of the way."
+          </p>
+          <div class="star-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <!-- Testimonial Card 6 -->
+        <div class="testimonial-card">
+          <div class="testimonial-header">
+            <img src="photo/male.webp" alt="Client Photo" class="testimonial-photo">
+            <div>
+              <h4 class="testimonial-author">Annette Black</h4>
+              <p class="testimonial-role">Director</p>
+            </div>
+          </div>
+          <p class="testimonial-text">
+            "Their property maintenance services are top-notch. My tenants are happier than ever."
+          </p>
+          <div class="star-rating">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <div class="ne">
+    <section id="contact" class="contact-container">
+      <div class="contact-left">
+        <h1>CONTACT</h1>
+        <p>We’d love to hear from you.</p>
+        <div class="contact-inquiries">
+          <p>
+            <strong>For general inquiries:</strong>
+            <a href="mailto:satwahomesnp@gmail.com">satwahomesnp@gmail.com</a>
+          </p>
+          <p>
+            <strong>For construction inquiries:</strong>
+            <a href="mailto:satwaconsultants@gmail.com">satwaconsultants@gmail.com</a>
+          </p>
+        </div>
+        <div class="social-icons">
+          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest-p"></i></a>
+          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:info@satwahomes.com" aria-label="Email"><i class="far fa-envelope"></i></a>
+          <a href="#" aria-label="Behance"><i class="fab fa-behance"></i></a>
+        </div>
+      </div>
+      <div class="contact-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3560.4743151669213!2d87.28240650110598!3d26.824862210777773!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39ef419bf948e28d%3A0x7d4aebb81ef69707!2sSatwa%20Homes%20-%20Design%20%26%20Construction!5e0!3m2!1sen!2snp!4v1742579748723!5m2!1sen!2snp"
+          loading="lazy"
+          allowfullscreen=""
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </section>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="page-footer">
+    <div class="footer-left">
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Use</a>
+    </div>
+    <div class="footer-center">Registered Under Satwa Consultant PVT. LTD.</div>
+    <div class="footer-right">
+      <a href="https://www.facebook.com/satwaconsultants">
+        <i class="fab fa-facebook-f"></i> 
+      </a>
+      <a href="https://www.instagram.com/satwahomes/">
+        <i class="fab fa-instagram"></i> 
+      </a>
+
+    </div>
+  </footer>
+  <!-- JavaScript for Navigation and Miscellaneous -->
+  <script>
+    function toggleMenu() {
+      const navList = document.querySelector('.nav-list');
+      navList.classList.toggle('show');
+    }
+
+    let slideIndex = 0;
+    showSlides();
+    function showSlides() {
+      const slides = document.getElementsByClassName("slide");
+      for (let i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      slideIndex++;
+      if (slideIndex > slides.length) {
+        slideIndex = 1;
+      }
+      if (slides[slideIndex - 1]) {
+        slides[slideIndex - 1].style.display = "block";
+      }
+      setTimeout(showSlides, 5000);
+    }
+    function plusSlides(n) {
+      slideIndex += n - 1;
+      showSlides();
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const seeMoreBtn = document.querySelector(".see-more-btn");
+      const hiddenCards = document.querySelectorAll(".hidden-project");
+      seeMoreBtn.addEventListener("click", () => {
+        hiddenCards.forEach((card) => {
+          card.classList.toggle("hidden-project");
+        });
+        seeMoreBtn.textContent =
+          seeMoreBtn.textContent === "See More" ? "See Less" : "See More";
+      });
+    });
+
+    const projectCards = document.querySelectorAll(".project-card");
+    projectCards.forEach((card) => {
+      const info = card.querySelector(".project-info");
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const moveX = (x / rect.width - 0.5) * 20;
+        const moveY = (y / rect.height - 0.5) * 20;
+        info.style.transform = `translate(${moveX}px, ${moveY}px)`;
+      });
+      card.addEventListener("mouseleave", () => {
+        info.style.transform = "translate(0,0)";
+      });
+    });
+
+    const slider = document.getElementById('slider');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+    prevBtn.addEventListener('click', () => {
+      slider.scrollBy({
+        left: -slider.clientWidth,
+        behavior: 'smooth'
+      });
+    });
+    nextBtn.addEventListener('click', () => {
+      slider.scrollBy({
+        left: slider.clientWidth,
+        behavior: 'smooth'
+      });
+    });
+
+    const chatbotIcon = document.getElementById('chatbotIcon');
+    chatbotIcon.addEventListener('click', () => {
+      window.location.href = "https://www.messenger.com/t/105451725032173";
+    });
+  </script>
+</body>
+</html>

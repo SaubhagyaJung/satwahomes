@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/png" href="satwa-4.png" />
+  <title>NEBA - Maharlika Villa</title>
+
+  <!-- Google Fonts (Montserrat) -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      
+      font-family: 'Montserrat', sans-serif;
+      color: #000;
+      background-color: #fff;
+      line-height: 1.5;
+    }
+    a {
+      text-decoration: none;
+      color: #000;
+    }
+
+    /* NAVIGATION BAR */
+    .main-header {
+      position: fixed;
+      top: 0;
+      z-index: 1000;
+      background: #fff;
+      width: 100%;
+      border-bottom: 0px solid #eee;
+    }
+    .navbar {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-right: 134px; /* Large-screen spacing */
+      position: relative;
+    }
+    .logo {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: #000;
+      margin-left: 1rem;
+      margin-top: 17px;
+    }
+    .logo a {
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      display: inline-block;
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      text-transform: lowercase;
+    }
+    .logo a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -3px;
+      width: 0;
+      height: 2px;
+      background: #000;
+      transition: width 0.3s ease;
+    }
+    .logo a:hover::after {
+      width: 100%;
+    }
+    .nav-list {
+      display: flex;
+      list-style: none;
+      justify-content: flex-end;
+      margin-right: 1rem;
+    }
+    .nav-list li {
+      margin-left: 2rem;
+    }
+    .nav-list a {
+      text-decoration: none;
+      color: #000;
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+    }
+    .menu-icon {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      margin-right: 1.5rem;
+    }
+    .menu-icon div {
+      width: 15px;
+      height: 0.6px;
+      background-color: #000;
+      margin: 4px 0;
+      transition: 0.4s;
+    }
+    @media (max-width: 768px) {
+      .navbar {
+        margin-right: 0;
+      }
+      .nav-list {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: #fff;
+        width: 100%;
+        padding: 1rem;
+        border-top: 1px solid #ccc;
+      }
+      .nav-list li {
+        margin-left: 0;
+        margin-bottom: 1rem;
+      }
+      .nav-list a {
+        font-size: 1rem;
+        display: block;
+      }
+      .menu-icon {
+        display: flex;
+      }
+      .nav-list.show {
+        display: flex;
+      }
+    }
+
+
+    /* HERO SECTION */
+    .hero {
+      position: relative;
+      margin-top: 60px;
+      height: 100vh;
+      background: url('hero.jpg') center center/cover no-repeat;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    .hero-text {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 2rem;
+      backdrop-filter: blur(3px);
+    }
+    .hero-text h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: 1px;
+      margin-bottom: 0.5rem;
+      text-transform: uppercase;
+    }
+    .hero-text p {
+      font-size: 0.9rem;
+      font-weight: 300;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    /* PROJECT DETAILS SECTION */
+    .details-wrapper {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+    }
+    .details-section {
+      max-width: 900px;
+      width: 100%;
+      padding: 2rem 1rem;
+      border-top: .4px solid #33333386;
+      border-bottom: .4px solid #33333386;
+      text-align: justify;
+    }
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      row-gap: 3px;
+      font-size: 14px;
+      font-weight: 300;
+    }
+    .details-grid p {
+      margin-bottom: 0.5rem;
+      margin-right: 450px;
+      
+    }
+    .details-grid p strong {
+      font-weight: 600;
+      margin-right: 5px;
+      
+    }
+
+    /* SITE / MAP SECTION */
+    .site-section {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+    .map-container {
+      flex: 1 1 50%;
+      min-width: 300px;
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .site-info {
+      flex: 1 1 50%;
+      min-width: 300px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .site-info h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .site-info p {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 300;
+      padding: 2rem;
+      border-top: 1px solid #eee;
+    }
+
+    @media (max-width: 768px) {
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      .hero-text p {
+        font-size: 0.8rem;
+      }
+      .site-info {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- NAVIGATION BAR -->
+  <header class="main-header">
+    <nav class="navbar">
+      <div class="logo">
+        <a href="index.html" style="text-transform: lowercase;">
+          <img src="photo/logo2.png" alt="logo">
+        </a>
+      </div>
+      <div class="menu-icon" onclick="toggleMenu()">
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+      <ul class="nav-list">
+        <li><a href="index.html#home">Home</a></li>
+        <li><a href="index.html#projects">Projects</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="index.html#blog">Updates</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+        <li><a href="price.html">Calculator</a></li>
+        <li><a href="login.html">Login</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <div class="hero-text">
+      <h1>Thapa Residence</h1>
+      <p></p>
+    </div>
+  </section>
+
+  <!-- PROJECT DETAILS SECTION (FULL SCREEN) -->
+  <div class="details-wrapper">
+    <section class="details-section">
+      <div class="details-grid">
+        <p><strong>YEAR:</strong> 2021</p>
+        <p><strong>STATUS:</strong> Limited to Concept Design</p>
+        <p><strong>SIZE:</strong> 1440 SQM / 15,500 SF | 2+1+1+1</p>
+        <p><strong>BUILT UP:</strong> 590 SQM / 6,350 SQF</p>
+        <p><strong>DESIGN TEAM:</strong>Pratham Thapa, Rabin Dahal</p>
+        <p><strong>LOCATION:</strong> Batangas, Philippines</p>
+        <p><strong>CATEGORY:</strong> Architecture + Interior</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- MAP SECTION -->
+  <section class="site-section">
+    <div class="map-container">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3874.0662772322636!2d121.01563631534005!3d13.784143900285776!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x33bd628f75f60c59%3A0xc28a9bb5e7595a73!2sBatangas%2C%20Philippines!5e0!3m2!1sen!2snp!4v1616134943989!5m2!1sen!2snp"
+        allowfullscreen=""
+        loading="lazy">
+      </iframe>
+    </div>
+    <div class="site-info">
+      <h2>SITE</h2>
+      <p>
+        Batangas, Philippines<br />
+        Nestled within the Philippines' Batangas hinterland
+      </p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 NEBA. All rights reserved.
+  </footer>
+</body>
+</html>
